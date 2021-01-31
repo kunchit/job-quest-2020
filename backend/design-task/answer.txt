@@ -1,0 +1,239 @@
+user schema 
+{
+    username:{
+        type: String,
+    },
+    passwrd:{
+        type: String
+    }
+}
+
+personalData schema 
+{
+    "user":{
+         type: ObjectId,
+         ref: 'User',
+    },
+    "draft":{
+
+      same object inside published
+
+    }
+    "published":{
+        "personalInformation" :{
+            "title": {
+                type: String
+            },
+            "firstName": {
+                type: String
+        },
+        "lastName": {
+            type: String
+        },
+        "birthDate": {
+            type: Date
+        },
+        "email": {
+            type: String
+        },
+        "cardNo:{
+            type: String
+        },
+        "address":{
+            type: String
+        },
+        "contact":{
+            type: String
+        },
+        "photo":{
+            type: Buffer
+        },
+        "nameBib:{
+            type: String
+        }
+    },
+    "applicantBackground":{
+        "registeredRunning":{
+            type: Boolean
+        },
+        "timeFinishRunning":{
+            "hour":{
+                type: Number
+            },
+            "minute":{
+                type: Number
+            }
+        }
+    },
+    "emergencyContact":{
+        "contact1":{
+            "fullname":{
+                type: String
+            },
+            "relationship":{
+                type: String
+            },
+            "tel":{
+                type: Number
+            }
+        },
+          "contact2":{
+            "fullname":{
+                type: String
+            },
+            "relationship":{
+                type: String
+            },
+            "tel":{
+                type: Number
+            }
+        }
+    },
+    "medicalInformation":{
+        "bloodType":{
+              type: String
+        },
+        "allergiesToDrugs":{
+            "answer":{
+                type: Boolean
+            },
+            "details":{
+                type: String
+            }
+        },
+        "underlyingDisease":{
+            "answer":{
+                type: Boolean
+            },
+            "details":{
+                type: String
+            }
+        },
+        "historyOfSurgery":{
+            "position":{
+                type: String
+            },
+            "year":{
+                type: Number
+            }
+        },
+        "plansToHaveChildren":{
+            "answer":{
+                type: Boolean
+            }
+        },
+        "personalMedicine ":{
+            "answer":{
+                type: Boolean
+            },
+            "details":{
+                type: String
+            }
+        },
+        "injuredMarathon":{
+            "answer":{
+                type: Boolean
+            },
+            "details":{
+                type: String
+            }
+        },
+        "exercise":{
+            "answer":{
+                type: Boolean
+            }
+        },
+        "exercisingInjured":{
+            "answer":{
+                type: Boolean
+            },
+            "details":{
+                type: String
+            }
+        }
+    },
+    "souvenir":{
+        "shirt":{
+            type: String
+        }
+    }
+ },
+}
+
+
+Endpoints
+ GET  /marathon/:id => get complete data
+ GET  /marathon/draft/:id => get draft data 
+ POST /marathon => save  complele data
+
+ body:{
+        personalInformation:{
+            title,
+            firstname,
+            lastname,
+               .
+               .
+               .
+        },
+        applicantBackground:{
+            registeredRunning,
+            timeFinishRunning:{
+                hour,
+                minute
+            }
+        },
+        emergencyContact:{
+            contact1:{
+                fullname,
+                relationship,
+                tel
+            },
+            contact2:{
+                fullname,
+                relationship,
+                tel
+            },
+        },
+        medicalInformation:{
+            bloodType,
+            allergiesToDrugs:{
+                answer,
+                details
+            },
+                  .
+                  .
+                  .
+        },
+        souvenir:{
+            shirt
+        }
+    }
+
+ POST /marathon/draft => save draft 
+    
+    body same above
+
+Authentication
+ - ใช้ library => Passport ในการทำ Authentication
+
+Validation
+ - ใช้ joi ในการ validate เป็น middleware
+
+Submit Form 
+
+เมื่อ post เข้ามา
+1. จะต้องผ่าน middleware authen ก่อน
+ * ถ้าไม่ผ่านจะ return message error กลับไป
+2. จะต้องผ่าน middleware validate body ก่อน
+ * ถ้าไม่ผ่านจะ return message error กลับไป
+3. ทำการ save ลง database ({published: request_body })
+
+Submit Draft 
+
+เมื่อ post เข้ามา
+1. จะต้องผ่าน middleware authen ก่อน
+ * ถ้าไม่ผ่านจะ return message error กลับไป
+2. จะต้องผ่าน middleware validate body ก่อน
+ * ถ้าไม่ผ่านจะ return message error กลับไป
+3. ตรวจสอบว่ามี draft ก่อนหน้าหรือไม่ ถ้ามีให้ลบ draft ก่อนหน้าออก
+4. ทำการ save draft ลง database ({draft: request_body })

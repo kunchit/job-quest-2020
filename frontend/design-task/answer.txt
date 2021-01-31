@@ -1,0 +1,25 @@
+src
+├──api
+├──config
+├──layout
+├──routers
+├──screen
+├──utils
+└── App.js
+└── index.js
+└── Routes.js
+
+Libraries
+ - ใช้ immer สำหรับการ update State 
+ - ใช้ react-hook-form สำหรับการจัดการ Form
+ - ใช้ yup สำหรับการ Validate Form 
+
+จัดการ State
+ - ใช้ useContext สำหรับการจัดการ global state
+ - ใช้ useReducer สำหรับช่วยจัดการ การ update state คู่กับ immer
+
+การ Validate form ก่อน submit
+- ใช้ yup คู่กับ react-hook-form
+
+ 
+ 
