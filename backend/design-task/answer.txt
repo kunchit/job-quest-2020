@@ -226,7 +226,8 @@ Submit Form
  * ถ้าไม่ผ่านจะ return message error กลับไป
 2. จะต้องผ่าน middleware validate body ก่อน
  * ถ้าไม่ผ่านจะ return message error กลับไป
-3. ทำการ save ลง database ({published: request_body })
+3. findById และตรวจสอบว่ามี draft หรือไม่ 
+4. ถ้าไม่มี draft  save ลง database ({published: request_body }) หรือ ถ้ามี draft ให้ทำการ update recode ({published: request_body }) และ save
 
 Submit Draft 
 
@@ -235,5 +236,5 @@ Submit Draft
  * ถ้าไม่ผ่านจะ return message error กลับไป
 2. จะต้องผ่าน middleware validate body ก่อน
  * ถ้าไม่ผ่านจะ return message error กลับไป
-3. ตรวจสอบว่ามี draft ก่อนหน้าหรือไม่ ถ้ามีให้ลบ draft ก่อนหน้าออก
+3. findById และ ตรวจสอบว่ามี draft ก่อนหน้าหรือไม่ ถ้ามีให้ลบ draft ก่อนหน้าออก
 4. ทำการ save draft ลง database ({draft: request_body })
